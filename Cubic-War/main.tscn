@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://ctwlcgmvndqvr"]
+
+[ext_resource type="Texture2D" uid="uid://josp8ksi56fe" path="res://icon.svg" id="1_454gn"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e8jdp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_454gn")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Main" type="Node2D"]
+
+[node name="Player" type="Player" parent="."]
+speed = Vector2(0, -100)
+position = Vector2(351, 1161)
+sprite_frames = SubResource("SpriteFrames_e8jdp")
