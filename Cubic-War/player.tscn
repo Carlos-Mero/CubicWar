@@ -57,6 +57,7 @@ animations = [{
 }]
 
 [node name="Player" type="Player"]
+is_processing = true
 velocity = Vector2(0, 18.685)
 
 [node name="CollisionAreaCore" type="CollisionShape2D" parent="."]

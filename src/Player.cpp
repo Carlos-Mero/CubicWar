@@ -1,4 +1,5 @@
 #include "Player.h"
+
 #include <godot_cpp/classes/animated_sprite2d.hpp>
 #include <godot_cpp/classes/collision_shape2d.hpp>
 #include <godot_cpp/classes/input.hpp>
@@ -10,17 +11,32 @@
 using namespace godot;
 
 void Player::_bind_methods(){
-	ClassDB::bind_method(D_METHOD("set_processing_status", "n_status"), &Player::set_process_status);
-	ClassDB::bind_method(D_METHOD("get_processing_status"), &Player::is_processing);
-	ClassDB::bind_method(D_METHOD("being_attacked", "damage"), &Player::being_attacked);
+	ClassDB::bind_method(
+			D_METHOD("set_processing_status", "n_status"),
+			&Player::set_process_status);
+	ClassDB::bind_method(
+			D_METHOD("get_processing_status"),
+			&Player::is_processing);
+	ClassDB::bind_method(
+			D_METHOD("being_attacked", "damage"),
+			&Player::being_attacked);
 	ClassDB::bind_method(D_METHOD("died"), &Player::died);
-	ClassDB::add_property("Player", PropertyInfo(Variant::BOOL, "is_processing"), "set_processing_status", "get_processing_status");
-	ADD_SIGNAL(MethodInfo("player_being_attacked", PropertyInfo(Variant::FLOAT, "damage")));
+	ClassDB::add_property(
+			"Player",
+			PropertyInfo(Variant::BOOL, "is_processing"),
+			"set_processing_status", "get_processing_status");
+	ADD_SIGNAL(MethodInfo(
+				"player_being_attacked",
+				PropertyInfo(Variant::FLOAT, "damage")));
 	ADD_SIGNAL(MethodInfo("player_died"));
+	ADD_SIGNAL(MethodInfo(
+				"player_attack",
+				PropertyInfo(Variant::INT, "weapon_type"),
+				PropertyInfo(Variant::VECTOR2, "current_pos")));
 }
 
 const double Player::max_speed = 1050.0;
-const double Player::default_weapon_coldown = 0.2;
+const double Player::default_weapon_coldown = 0.17;
 
 Player::Player() {
 }
@@ -30,9 +46,11 @@ Player::~Player() {
 
 void Player::_ready() {
 	//TODO
-	processing_status = false;
+	processing_status = true;
+	//processing_status = false;
 	health = 200.0;
 	weapon_coldown = default_weapon_coldown;
+	current_weapon_type = WeaponType::DEFAULT_WEAPON;
 	_cubic_war = get_node<CubicWar>("/root/CubicWar");
 	_animated_sprite = get_node<AnimatedSprite2D>("AnimatedSprite2D");
 	_collision_area_core = get_node<CollisionShape2D>("CollisionAreaCore");
@@ -40,12 +58,12 @@ void Player::_ready() {
 	_collision_area_edge = get_node<CollisionShape2D>("CollisionAreaEdge");
 	input = Input::get_singleton();
 	connect("player_died", Callable(this, "died"));
+	connect("player_died", Callable(get_parent(), "player_died"));
 	connect("player_being_attacked", Callable(this, "being_attacked"));
-}
+	connect(
+			"player_attack",
+			Callable(get_parent(), "player_attack_start"));
 
-void Player::default_weapon_attack() {
-	//TODO
-	return;
 }
 
 void Player::died() {
@@ -68,12 +86,13 @@ void Player::_process(double delta) {
 	weapon_coldown -= delta;
 
 	if (weapon_coldown <= 0) {
-		default_weapon_attack();
+		emit_signal("player_attack", (int)current_weapon_type, get_position());
 		weapon_coldown += default_weapon_coldown;
 	}
 
 	if (get_velocity().x > 0) {
-		if (_animated_sprite->get_frame() == 0 && !_animated_sprite->is_flipped_h()) {
+		if (_animated_sprite->get_frame() == 0 && !_animated_sprite->is_flipped_h()) 
+		{
 			_animated_sprite->stop();
 		} else {
 			_animated_sprite->set_flip_h(false);

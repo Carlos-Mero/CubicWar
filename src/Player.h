@@ -21,6 +21,7 @@ class Player : public CharacterBody2D {
 
 		bool processing_status;
 		double health;
+		WeaponType current_weapon_type;
 		double weapon_coldown;
 
 		CubicWar * _cubic_war;
@@ -33,16 +34,18 @@ class Player : public CharacterBody2D {
 		static void _bind_methods();
 
 	public:
+
 		Input * input;
 		Player();
 		~Player();
 
-		void set_process_status(const bool n_status) {processing_status = n_status;}
-		bool is_processing() const {return processing_status;}
-
-		void default_weapon_attack();
 		void being_attacked(const double damage);
 		void died();
+
+		void set_process_status(const bool n_status) {processing_status = n_status;}
+		bool is_processing() const {return processing_status;}
+		void set_weapon_type(const WeaponType wp) {current_weapon_type = wp;}
+		WeaponType get_weapon_type() const {return current_weapon_type;}
 
 		void _ready() override;
 		void _process(double delta) override;

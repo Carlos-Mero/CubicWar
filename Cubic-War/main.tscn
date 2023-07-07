@@ -1,10 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://ctwlcgmvndqvr"]
+[gd_scene load_steps=4 format=3 uid="uid://ctwlcgmvndqvr"]
 
 [ext_resource type="PackedScene" uid="uid://hef2gbat23hm" path="res://player.tscn" id="1_5xmaw"]
+[ext_resource type="PackedScene" uid="uid://b83vbhdkcgy27" path="res://enemy_bee.tscn" id="2_aq7nu"]
+[ext_resource type="PackedScene" uid="uid://mgdcg0nfoyhi" path="res://default_bullet.tscn" id="3_ts0d0"]
 
 [node name="CubicWar" type="CubicWar"]
 
 [node name="Player" parent="." instance=ExtResource("1_5xmaw")]
-is_processing = true
-position = Vector2(551.606, 365.745)
+position = Vector2(570.738, 1119.48)
 velocity = Vector2(0, 0)
+
+[node name="ResourcePreloader" type="ResourcePreloader" parent="."]
+resources = [PackedStringArray("default_bullet", "default_bullet 2", "default_bullet 3", "default_bullet 4", "enemy_bee", "enemy_bee 2", "enemy_bee 3", "enemy_bee 4", "enemy_bee 5", "enemy_bee 6", "enemy_bee 7", "enemy_bee 8", "enemy_bee 9"), [ExtResource("3_ts0d0"), ExtResource("3_ts0d0"), ExtResource("3_ts0d0"), ExtResource("3_ts0d0"), ExtResource("2_aq7nu"), ExtResource("2_aq7nu"), ExtResource("2_aq7nu"), ExtResource("2_aq7nu"), ExtResource("2_aq7nu"), ExtResource("2_aq7nu"), ExtResource("2_aq7nu"), ExtResource("2_aq7nu"), ExtResource("2_aq7nu")]]
+
+[node name="Bullet" parent="." instance=ExtResource("3_ts0d0")]
+position = Vector2(274, -1.52996e+06)

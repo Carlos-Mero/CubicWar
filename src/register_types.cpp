@@ -21,6 +21,7 @@ void initialize_modules(ModuleInitializationLevel p_level) {
     ClassDB::register_class<Player>();
 		ClassDB::register_class<Enemy>();
 		ClassDB::register_class<Bullet>();
+		ClassDB::register_class<DefaultBullet>();
 
 }
 
@@ -32,8 +33,8 @@ void uninitialize_modules(ModuleInitializationLevel p_level) {
 
 extern "C" {
 // Initialization.
-GDExtensionBool GDE_EXPORT cubic_war_modules_init(const GDExtensionInterface *p_interface, const GDExtensionClassLibraryPtr p_library, GDExtensionInitialization *r_initialization) {
-    godot::GDExtensionBinding::InitObject init_obj(p_interface, p_library, r_initialization);
+GDExtensionBool GDE_EXPORT cubic_war_modules_init(GDExtensionInterfaceGetProcAddress p_get_proc_address, const GDExtensionClassLibraryPtr p_library, GDExtensionInitialization *r_initialization) {
+    godot::GDExtensionBinding::InitObject init_obj(p_get_proc_address, p_library, r_initialization);
 
     init_obj.register_initializer(initialize_modules);
     init_obj.register_terminator(uninitialize_modules);
