@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="120"
+   height="120"
+   viewBox="0 0 120 120"
+   version="1.1"
+   id="svg5"
+   inkscape:export-filename="../../../../Downloads/PlayerTurningLeft_1.svg"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   inkscape:version="1.2.2 (b0a84865, 2022-12-01)"
+   sodipodi:docname="CubicWarPlayerStand.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#111111"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="px"
+     showgrid="false"
+     inkscape:zoom="4.8403327"
+     inkscape:cx="59.809938"
+     inkscape:cy="52.372433"
+     inkscape:window-width="1386"
+     inkscape:window-height="861"
+     inkscape:window-x="672"
+     inkscape:window-y="1491"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="图层 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="fill:#d7d7d7;fill-opacity:0.853659;stroke:#000000;stroke-opacity:1"
+       d="M 8,93 60,55 108,87 Z"
+       id="path3963"
+       sodipodi:nodetypes="cccc" />
+    <path
+       style="fill:#ebebeb;fill-opacity:0.88;stroke:#000000;stroke-opacity:1"
+       d="M 60,20 30,116 60,92 90,109 Z"
+       id="path113"
+       sodipodi:nodetypes="ccccc" />
+  </g>
+</svg>

@@ -1,0 +1,77 @@
+[gd_scene load_steps=8 format=3 uid="uid://hef2gbat23hm"]
+
+[ext_resource type="Texture2D" uid="uid://c8re3x2eshubl" path="res://Resources/PlayerStand.svg" id="1_v0q2q"]
+[ext_resource type="Texture2D" uid="uid://0bsqjjonuupq" path="res://Resources/PlayerTurningRight_1.svg" id="2_gy2ep"]
+[ext_resource type="Texture2D" uid="uid://du2unqnfbxctt" path="res://Resources/PlayerTurningRight_2.svg" id="3_munxe"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_n30b3"]
+radius = 8.0
+height = 44.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fculw"]
+radius = 12.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dwj4g"]
+height = 44.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_o0b2s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_v0q2q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_v0q2q")
+}],
+"loop": true,
+"name": &"Stand",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_v0q2q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_gy2ep")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_munxe")
+}],
+"loop": false,
+"name": &"TurningRight",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_munxe")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_gy2ep")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_v0q2q")
+}],
+"loop": false,
+"name": &"TurningRightRev",
+"speed": 4.0
+}]
+
+[node name="Player" type="Player"]
+velocity = Vector2(0, 18.685)
+
+[node name="CollisionAreaCore" type="CollisionShape2D" parent="."]
+position = Vector2(2.08165e-12, 5)
+shape = SubResource("CapsuleShape2D_n30b3")
+
+[node name="CollisionAreaAround" type="CollisionShape2D" parent="."]
+position = Vector2(0, 10)
+shape = SubResource("CapsuleShape2D_fculw")
+
+[node name="CollisionAreaEdge" type="CollisionShape2D" parent="."]
+position = Vector2(7.10543e-15, 19)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_dwj4g")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_o0b2s")
+animation = &"Stand"
