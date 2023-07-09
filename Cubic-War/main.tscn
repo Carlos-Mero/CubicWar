@@ -7,11 +7,7 @@
 [node name="CubicWar" type="CubicWar"]
 
 [node name="Player" parent="." instance=ExtResource("1_5xmaw")]
-position = Vector2(570.738, 1119.48)
-velocity = Vector2(0, 0)
+position = Vector2(194.817, 502.065)
 
 [node name="ResourcePreloader" type="ResourcePreloader" parent="."]
-resources = [PackedStringArray("default_bullet", "default_bullet 2", "default_bullet 3", "default_bullet 4", "enemy_bee", "enemy_bee 2", "enemy_bee 3", "enemy_bee 4", "enemy_bee 5", "enemy_bee 6", "enemy_bee 7", "enemy_bee 8", "enemy_bee 9"), [ExtResource("3_ts0d0"), ExtResource("3_ts0d0"), ExtResource("3_ts0d0"), ExtResource("3_ts0d0"), ExtResource("2_aq7nu"), ExtResource("2_aq7nu"), ExtResource("2_aq7nu"), ExtResource("2_aq7nu"), ExtResource("2_aq7nu"), ExtResource("2_aq7nu"), ExtResource("2_aq7nu"), ExtResource("2_aq7nu"), ExtResource("2_aq7nu")]]
-
-[node name="Bullet" parent="." instance=ExtResource("3_ts0d0")]
-position = Vector2(274, -1.52996e+06)
+resources = [PackedStringArray("default_bullet", "default_bullet 10", "default_bullet 11", "default_bullet 12", "default_bullet 13", "default_bullet 2", "default_bullet 3", "default_bullet 4", "default_bullet 5", "default_bullet 6", "default_bullet 7", "default_bullet 8", "default_bullet 9", "enemy_bee", "enemy_bee 10", "enemy_bee 11", "enemy_bee 12", "enemy_bee 13", "enemy_bee 14", "enemy_bee 15", "enemy_bee 16", "enemy_bee 17", "enemy_bee 18", "enemy_bee 2", "enemy_bee 3", "enemy_bee 4", "enemy_bee 5", "enemy_bee 6", "enemy_bee 7", "enemy_bee 8", "enemy_bee 9"), [ExtResource("3_ts0d0"), ExtResource("3_ts0d0"), ExtResource("3_ts0d0"), ExtResource("3_ts0d0"), ExtResource("3_ts0d0"), ExtResource("3_ts0d0"), ExtResource("3_ts0d0"), ExtResource("3_ts0d0"), ExtResource("3_ts0d0"), ExtResource("3_ts0d0"), ExtResource("3_ts0d0"), ExtResource("3_ts0d0"), ExtResource("3_ts0d0"), ExtResource("2_aq7nu"), ExtResource("2_aq7nu"), ExtResource("2_aq7nu"), ExtResource("2_aq7nu"), ExtResource("2_aq7nu"), ExtResource("2_aq7nu"), ExtResource("2_aq7nu"), ExtResource("2_aq7nu"), ExtResource("2_aq7nu"), ExtResource("2_aq7nu"), ExtResource("2_aq7nu"), ExtResource("2_aq7nu"), ExtResource("2_aq7nu"), ExtResource("2_aq7nu"), ExtResource("2_aq7nu"), ExtResource("2_aq7nu"), ExtResource("2_aq7nu"), ExtResource("2_aq7nu")]]

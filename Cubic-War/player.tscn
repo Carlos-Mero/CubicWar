@@ -1,8 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://hef2gbat23hm"]
+[gd_scene load_steps=13 format=3 uid="uid://hef2gbat23hm"]
 
 [ext_resource type="Texture2D" uid="uid://c8re3x2eshubl" path="res://Resources/PlayerStand.svg" id="1_v0q2q"]
+[ext_resource type="Texture2D" uid="uid://cu3pvs135pnog" path="res://Resources/Laser_1.svg" id="2_25f2q"]
 [ext_resource type="Texture2D" uid="uid://0bsqjjonuupq" path="res://Resources/PlayerTurningRight_1.svg" id="2_gy2ep"]
 [ext_resource type="Texture2D" uid="uid://du2unqnfbxctt" path="res://Resources/PlayerTurningRight_2.svg" id="3_munxe"]
+[ext_resource type="Texture2D" uid="uid://bqtu1sdnfi4ec" path="res://Resources/Laser_3.svg" id="3_up8bb"]
+[ext_resource type="Texture2D" uid="uid://4xpyqu7xs7t7" path="res://Resources/LaserPre.svg" id="4_tsylp"]
+[ext_resource type="Texture2D" uid="uid://dkendqv8a7x5g" path="res://Resources/Laser_2.svg" id="4_y1bfp"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_n30b3"]
 radius = 8.0
@@ -14,12 +18,49 @@ radius = 12.0
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dwj4g"]
 height = 44.0
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_o0b2s"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_mca5h"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_v0q2q")
+"texture": ExtResource("4_tsylp")
 }, {
+"duration": 1.0,
+"texture": ExtResource("4_tsylp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_25f2q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_up8bb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_y1bfp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_25f2q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_tsylp")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"laser_attack",
+"speed": 13.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_tsylp")
+}],
+"loop": true,
+"name": &"laser_prepare",
+"speed": 13.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_o0b2s"]
+animations = [{
+"frames": [{
 "duration": 1.0,
 "texture": ExtResource("1_v0q2q")
 }],
@@ -40,25 +81,10 @@ animations = [{
 "loop": false,
 "name": &"TurningRight",
 "speed": 3.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("3_munxe")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_gy2ep")
-}, {
-"duration": 1.0,
-"texture": ExtResource("1_v0q2q")
-}],
-"loop": false,
-"name": &"TurningRightRev",
-"speed": 4.0
 }]
 
 [node name="Player" type="Player"]
-is_processing = true
-velocity = Vector2(0, 18.685)
+is_processing = false
 
 [node name="CollisionAreaCore" type="CollisionShape2D" parent="."]
 position = Vector2(2.08165e-12, 5)
@@ -73,6 +99,26 @@ position = Vector2(7.10543e-15, 19)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_dwj4g")
 
+[node name="Laser" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(2.08165e-12, -635)
+sprite_frames = SubResource("SpriteFrames_mca5h")
+animation = &"laser_attack"
+
+[node name="Range" type="Area2D" parent="Laser"]
+collision_layer = 4
+collision_mask = 2
+
+[node name="LaserRangeRight" type="CollisionPolygon2D" parent="Laser/Range"]
+polygon = PackedVector2Array(-42, 659, -30, 659, -30, -700, -42, -700)
+disabled = true
+
+[node name="LaserRangeLeft" type="CollisionPolygon2D" parent="Laser/Range"]
+position = Vector2(73, 0)
+polygon = PackedVector2Array(-42, 659, -30, 659, -30, -700, -42, -700)
+disabled = true
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_o0b2s")
-animation = &"Stand"
+animation = &"TurningRight"
+flip_h = true
