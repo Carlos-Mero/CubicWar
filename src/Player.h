@@ -1,9 +1,12 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
+#include "Enemy.h"
+
 #include <godot_cpp/classes/animated_sprite2d.hpp>
 #include <godot_cpp/classes/character_body2d.hpp>
 #include <godot_cpp/classes/collision_polygon2d.hpp>
+#include <godot_cpp/classes/area2d.hpp>
 #include <godot_cpp/classes/collision_shape2d.hpp>
 #include <godot_cpp/classes/display_server.hpp>
 #include <godot_cpp/classes/input.hpp>
@@ -34,6 +37,7 @@ class Player : public CharacterBody2D {
 		double laser_accumulate;
 
 		AnimatedSprite2D * _laser;
+		Area2D * _laser_range;
 		CollisionPolygon2D * _laser_range_left;
 		CollisionPolygon2D * _laser_range_right;
 		AnimatedSprite2D * _animated_sprite;
@@ -51,7 +55,7 @@ class Player : public CharacterBody2D {
 		~Player();
 
 		void being_attacked(const double damage);
-		void died();
+		void died(Vector2 pos);
 
 		void set_process_status(const bool n_status) {processing_status = n_status;}
 		bool is_processing() const {return processing_status;}
@@ -62,6 +66,7 @@ class Player : public CharacterBody2D {
 		inline void disable_laser_detection();
 		inline void enable_laser_detection();
 		void laser_shoot();
+		void cast_laser_damage(Enemy * target);
 
 		void _ready() override;
 		void _process(double delta) override;

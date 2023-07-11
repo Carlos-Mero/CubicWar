@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="120"
+   height="120"
+   viewBox="0 0 120 120"
+   version="1.1"
+   id="SVGRoot"
+   sodipodi:docname="EnemyBee.svg"
+   inkscape:version="1.2.2 (b0a84865, 2022-12-01)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview454"
+     pagecolor="#ffffff"
+     bordercolor="#111111"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="px"
+     showgrid="true"
+     inkscape:zoom="4.4574236"
+     inkscape:cx="50.47759"
+     inkscape:cy="54.740142"
+     inkscape:window-width="1321"
+     inkscape:window-height="876"
+     inkscape:window-x="89"
+     inkscape:window-y="44"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid577" />
+  </sodipodi:namedview>
+  <defs
+     id="defs449" />
+  <g
+     inkscape:label="图层 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="fill:#e0929f;fill-opacity:1;stroke:#000000;stroke-opacity:0.41502"
+       d="M 60.124418,15.479794 19.518002,55.188831 59.900073,75.604212 99.833455,60.348762 Z"
+       id="path690" />
+    <path
+       style="fill:#ad667c;fill-opacity:1;stroke:#000000;stroke-opacity:0.41502"
+       d="M 58.105315,59.900073 39.933382,73.585108 54.964487,106.11511 75.155523,78.520695 Z"
+       id="path4540" />
+  </g>
+</svg>

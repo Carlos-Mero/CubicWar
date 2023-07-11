@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://b83vbhdkcgy27"]
+
+[ext_resource type="Texture2D" uid="uid://bgkwrjo48urpm" path="res://Resources/EnemyBee.svg" id="1_rwing"]
+
+[node name="Enemy" type="Enemy"]
+health = 270.0
+collision_layer = 2
+gravity_scale = 2.66454e-15
+max_contacts_reported = 1
+contact_monitor = true
+lock_rotation = true
+linear_damp = 12.242
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(2.86102e-06, 2.86102e-06)
+scale = Vector2(4, 4)
+polygon = PackedVector2Array(-0.500001, -10.5, -10, -1.75, -3.5, 2, -1.25, 7.75, 1.75, 2.25, 9.25, -7.15255e-07)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_rwing")

@@ -1,7 +1,9 @@
 #include "Player.h"
+#include "Enemy.h"
 
 #include <godot_cpp/classes/animated_sprite2d.hpp>
 #include <godot_cpp/classes/collision_shape2d.hpp>
+#include <godot_cpp/classes/area2d.hpp>
 #include <godot_cpp/classes/input.hpp>
 #include <godot_cpp/core/class_db.hpp>
 #include <godot_cpp/core/math.hpp>
@@ -20,11 +22,13 @@ void Player::_bind_methods(){
 	ClassDB::bind_method(
 			D_METHOD("being_attacked", "damage"),
 			&Player::being_attacked);
-	ClassDB::bind_method(D_METHOD("died"), &Player::died);
+	ClassDB::bind_method(D_METHOD("died", "pos"), &Player::died);
 	ClassDB::bind_method(
 			D_METHOD("disable_laser_detection"), &Player::disable_laser_detection);
 	ClassDB::bind_method(
 			D_METHOD("enable_laser_detection"), &Player::enable_laser_detection);
+	ClassDB::bind_method(
+			D_METHOD("cast_laser_damage", "target"), &Player::cast_laser_damage);
 	ClassDB::add_property(
 			"Player",
 			PropertyInfo(Variant::BOOL, "is_processing"),
@@ -32,18 +36,23 @@ void Player::_bind_methods(){
 	ADD_SIGNAL(MethodInfo(
 				"player_being_attacked",
 				PropertyInfo(Variant::FLOAT, "damage")));
-	ADD_SIGNAL(MethodInfo("player_died"));
+	ADD_SIGNAL(MethodInfo(
+				"player_died",
+				PropertyInfo(Variant::VECTOR2, "die_pos")));
 	ADD_SIGNAL(MethodInfo(
 				"player_attack",
 				PropertyInfo(Variant::INT, "weapon_type"),
 				PropertyInfo(Variant::VECTOR2, "current_pos")));
+	ADD_SIGNAL(MethodInfo(
+				"laser_attacked",
+				PropertyInfo(Variant::VECTOR2, "target_pos")));
 }
 
 const double Player::max_speed = 1050.0;
 const double Player::default_weapon_coldown = 0.17;
 const double Player::laser_min_accumulate = 0.5;
 const double Player::laser_max_accumulate = 2.4;
-const double Player::laser_dps = 91;
+const double Player::laser_dps = 131.0;
 
 Player::Player() {
 	processing_status = true;
@@ -60,6 +69,7 @@ Player::~Player() {
 void Player::_ready() {
 	//TODO
 	_laser = get_node<AnimatedSprite2D>("Laser");
+	_laser_range = get_node<Area2D>("Laser/Range");
 	_laser_range_right = get_node<CollisionPolygon2D>("Laser/Range/LaserRangeRight");
 	_laser_range_left = get_node<CollisionPolygon2D>("Laser/Range/LaserRangeLeft");
 	_animated_sprite = get_node<AnimatedSprite2D>("AnimatedSprite2D");
@@ -72,18 +82,22 @@ void Player::_ready() {
 	connect("player_being_attacked", Callable(this, "being_attacked"));
 
 	_laser->connect("animation_finished", Callable(this, "disable_laser_detection"));
+	_laser_range->connect(
+			"body_entered", Callable(this, "cast_laser_damage"));
 
 }
 
-void Player::died() {
+void Player::died(Vector2 pos) {
 	//TODO
+	processing_status = false;
+	hide();
 	return;
 }
 
 void Player::being_attacked(const double damage) {
 	health -= damage;
 	if (health <= 0) {
-		emit_signal("player_died");
+		emit_signal("player_died", get_position());
 	}
 }
 
@@ -176,4 +190,9 @@ void Player::laser_shoot() {
 	_laser->play("laser_attack");
 	enable_laser_detection();
 	//TODO
+}
+
+void Player::cast_laser_damage(Enemy * target) {
+	target->being_attacked(laser_accumulate * laser_dps);
+	emit_signal("laser_attacked", target->get_position());
 }

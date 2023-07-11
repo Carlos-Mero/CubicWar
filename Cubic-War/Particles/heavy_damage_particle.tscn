@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://b3ecnpjba1bx2"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_12crb"]
+emission_shape = 1
+emission_sphere_radius = 52.88
+particle_flag_disable_z = true
+gravity = Vector3(2.08165e-12, 2.08165e-12, 2.08165e-12)
+initial_velocity_min = -19.0
+initial_velocity_max = 19.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 19.0
+scale_max = 24.0
+
+[node name="GPUParticles2D_GC" type="GPUParticles2D_GC"]
+amount = 9
+process_material = SubResource("ParticleProcessMaterial_12crb")
+lifetime = 2.1
+speed_scale = 2.0
+explosiveness = 1.0
+randomness = 1.0

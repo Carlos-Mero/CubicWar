@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Bullets.h"
+#include "DefaultParticle.h"
 
 #include <gdextension_interface.h>
 #include <godot_cpp/core/defs.hpp>
@@ -21,7 +22,9 @@ void initialize_modules(ModuleInitializationLevel p_level) {
     ClassDB::register_class<Player>();
 		ClassDB::register_class<Enemy>();
 		ClassDB::register_class<Bullet>();
+		ClassDB::register_class<GPUParticles2D_GC>();
 		ClassDB::register_class<DefaultBullet>();
+		ClassDB::register_class<EnemyBeeBullet>();
 
 }
 

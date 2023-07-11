@@ -21,6 +21,12 @@ void CubicWar::_bind_methods() {
 			D_METHOD("game_restart_met"), &CubicWar::game_restart);
 	ClassDB::bind_method(
 			D_METHOD("game_stop_met"), &CubicWar::game_stop);
+	ClassDB::bind_method(
+			D_METHOD("emit_default_particle", "st_pos"),
+			&CubicWar::player_default_weapon_emit_particle);
+	ClassDB::bind_method(
+			D_METHOD("emit_heavy_damage_particle", "st_pos"),
+			&CubicWar::emit_heavy_damage_particle);
 	ADD_SIGNAL(MethodInfo("game_ready"));
 	ADD_SIGNAL(MethodInfo("game_restart"));
 	ADD_SIGNAL(MethodInfo("game_stop"));
@@ -55,11 +61,27 @@ void CubicWar::player_attack(int type, Vector2 st_pos) {
 void CubicWar::player_default_weapon_attack(Vector2 st_pos) {
 	Node *bullet = default_bullet->instantiate();
 	bullet->set("position", st_pos);
+	bullet->connect("default_bullet_hit", Callable(this, "emit_default_particle"));
 	add_child(bullet);
 }
 
-void CubicWar::player_died() {
+void CubicWar::player_default_weapon_emit_particle(Vector2 st_pos) {
+	Node *particle = default_bullet_particle->instantiate();
+	particle->set("position", st_pos);
+	particle->set("one_shot", true);
+	add_child(particle);
+}
+
+void CubicWar::emit_heavy_damage_particle(Vector2 st_pos) {
+	Node *particle = heavy_damage_particle->instantiate();
+	particle->set("position", st_pos);
+	particle->set("one_shot", true);
+	add_child(particle);
+}
+
+void CubicWar::player_died(Vector2 pos) {
 	UtilityFunctions::print("You are died.");
+	//TODO
 }
 
 void CubicWar::_ready() {
@@ -73,7 +95,9 @@ void CubicWar::_ready() {
 	_player->set_movement_limit(_scene_size);
 
 	default_bullet = _re_loader->load("res://default_bullet.tscn");
-	enemy_bee = _re_loader->load("res://enemy_bee.tscn");
+	enemy_bee = _re_loader->load("res://Enemy/enemy_bee.tscn");
+	default_bullet_particle = _re_loader->load("res://Particles/default_bullet_particle.tscn");
+	heavy_damage_particle = _re_loader->load("res://Particles/heavy_damage_particle.tscn");
 
 	_pre_loader->add_resource("default_bullet", default_bullet);
 	_pre_loader->add_resource("enemy_bee", enemy_bee);
@@ -85,6 +109,12 @@ void CubicWar::_ready() {
 			"player_attack",
 			Callable(this, "player_attack_start"));
 	_player->connect("player_died", Callable(this, "player_died"));
+	_player->connect(
+			"laser_attacked",
+			Callable(this, "emit_heavy_damage_particle"));
+	_player->connect(
+			"player_died",
+			Callable(this, "emit_heavy_damage_particle"));
 
 }
 
@@ -99,9 +129,9 @@ void CubicWar::game_stop() {
 }
 
 void CubicWar::_process(double delta) {
-	if (input->is_action_pressed("game_restart")) {
+	if (input->is_action_just_pressed("ui_accept")) {
 		emit_signal("game_restart");
-	} else if (input->is_action_pressed("game_stop")) {
+	} else if (input->is_action_just_pressed("ui_cancel")) {
 		emit_signal("game_stop");
 	}
 }
