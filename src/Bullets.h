@@ -47,13 +47,14 @@ class EnemyBeeBullet : public Area2D {
 
 	private:
 		static const double damage;
-		static const double speed_norm;
 		Vector2 bspeed;
 
 	protected:
 		static void _bind_methods();
 
 	public:
+		static const double speed_norm;
+
 		EnemyBeeBullet();
 		~EnemyBeeBullet();
 

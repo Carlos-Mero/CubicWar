@@ -1,5 +1,7 @@
 #include "CubicWar.h"
 #include "Player.h"
+#include "Enemy.h"
+#include "Bullets.h"
 
 #include <godot_cpp/classes/display_server.hpp>
 #include <godot_cpp/classes/resource_loader.hpp>
@@ -27,6 +29,9 @@ void CubicWar::_bind_methods() {
 	ClassDB::bind_method(
 			D_METHOD("emit_heavy_damage_particle", "st_pos"),
 			&CubicWar::emit_heavy_damage_particle);
+	ClassDB::bind_method(
+			D_METHOD("enemy_bee_attack", "st_pos"),
+			&CubicWar::enemy_bee_attack);
 	ADD_SIGNAL(MethodInfo("game_ready"));
 	ADD_SIGNAL(MethodInfo("game_restart"));
 	ADD_SIGNAL(MethodInfo("game_stop"));
@@ -72,6 +77,13 @@ void CubicWar::player_default_weapon_emit_particle(Vector2 st_pos) {
 	add_child(particle);
 }
 
+void CubicWar::enemy_bee_attack(Vector2 st_pos) {
+	Node *bullet = enemy_bee_bullet->instantiate();
+	bullet->set("position", st_pos);
+	bullet->set("velocity", (_player->get_position() - st_pos) * EnemyBeeBullet::speed_norm);
+	add_child(bullet);
+}
+
 void CubicWar::emit_heavy_damage_particle(Vector2 st_pos) {
 	Node *particle = heavy_damage_particle->instantiate();
 	particle->set("position", st_pos);
@@ -94,10 +106,13 @@ void CubicWar::_ready() {
 	_player = get_node<Player>("Player");
 	_player->set_movement_limit(_scene_size);
 
-	default_bullet = _re_loader->load("res://default_bullet.tscn");
+	default_bullet = _re_loader->load(
+			"res://Bullets/default_bullet.tscn");
 	enemy_bee = _re_loader->load("res://Enemy/enemy_bee.tscn");
-	default_bullet_particle = _re_loader->load("res://Particles/default_bullet_particle.tscn");
-	heavy_damage_particle = _re_loader->load("res://Particles/heavy_damage_particle.tscn");
+	default_bullet_particle = _re_loader->load(
+			"res://Particles/default_bullet_particle.tscn");
+	heavy_damage_particle = _re_loader->load(
+			"res://Particles/heavy_damage_particle.tscn");
 
 	_pre_loader->add_resource("default_bullet", default_bullet);
 	_pre_loader->add_resource("enemy_bee", enemy_bee);

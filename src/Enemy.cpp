@@ -5,7 +5,7 @@
 
 using namespace godot;
 
-double Enemy::default_weapon_coldown = 1.4;
+double Enemy::default_weapon_coldown = 0.7;
 double Enemy::contact_damage = 100.0;
 
 void Enemy::_bind_methods() {
@@ -33,12 +33,12 @@ void Enemy::_bind_methods() {
 			"set_default_weapon_coldown", "get_default_weapon_coldown");
 	ADD_SIGNAL(MethodInfo(
 				"enemy_default_weapon_attack",
-				PropertyInfo(Variant::VECTOR2, "enemy_pos"),
-				PropertyInfo(Variant::VECTOR2, "bullet_dir")));
+				PropertyInfo(Variant::VECTOR2, "enemy_pos")));
 	ADD_SIGNAL(MethodInfo("enemy_died"));
 }
 
 Enemy::Enemy() {
+	m_default_weapon_coldown = default_weapon_coldown;
 }
 
 Enemy::~Enemy() {
@@ -59,16 +59,18 @@ void Enemy::cast_contact_damage(Node *target) {
 }
 
 void Enemy::_ready() {
-	m_default_weapon_coldown = default_weapon_coldown;
 
 	connect("body_entered", Callable(this, "cast_contact_damage"));
+	connect("enemy_default_weapon_attack", Callable(get_parent(), "enemy_bee_attack"));
+
 }
 
 void Enemy::_process(double delta) {
 	m_default_weapon_coldown -= delta;
 	if (m_default_weapon_coldown <= 0) {
 		m_default_weapon_coldown += default_weapon_coldown;
-		//TODO
+		m_default_weapon_coldown += (rand() % 10 - 5) * 0.05;
+		// emit_signal("enemy_default_weapon_attack", get_position());
 	}
 }
 

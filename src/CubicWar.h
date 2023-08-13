@@ -25,6 +25,8 @@ class CubicWar : public Node2D {
 		Player * _player;
 
 		Ref<PackedScene> default_bullet;
+		Ref<PackedScene> enemy_bee_bullet;
+
 		Ref<PackedScene> default_bullet_particle;
 		Ref<PackedScene> heavy_damage_particle;
 
@@ -44,6 +46,7 @@ class CubicWar : public Node2D {
 		void game_stop();
 		void player_attack(int type, Vector2 st_pos);
 		void player_default_weapon_attack(Vector2 st_pos);
+		void enemy_bee_attack(Vector2 st_pos);
 		void player_default_weapon_emit_particle(Vector2 st_pos);
 		void emit_heavy_damage_particle(Vector2 st_pos);
 		void player_died(Vector2 pos);
